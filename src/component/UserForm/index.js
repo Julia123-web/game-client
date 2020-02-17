@@ -2,17 +2,23 @@ import React from "react";
 
 const UserForm = props => {
   // console.log(props);
+  const isLogin = props.isLogin;
   return (
     <div>
       {props.text}
       <form onSubmit={props.handleSubmit}>
-        <label>Name:</label>
-        <input
-          onChange={props.handleChange}
-          type="text"
-          name="name"
-          value={props.values.name}
-        />
+        {!isLogin && (
+          <>
+            <label>Name:</label>
+            <input
+              onChange={props.handleChange}
+              type="text"
+              name="name"
+              value={props.values.name}
+            />
+          </>
+        )}
+
         <label>Email:</label>
         <input
           onChange={props.handleChange}

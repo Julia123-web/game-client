@@ -26,14 +26,15 @@ function loginSuccess(token) {
   };
 }
 
-export function login(email, password) {
-  return async function(dispatch, getState) {
-    console.log(email, password);
-    const response = await axios.post("http://localhost:4000/login", {
-      email,
-      password
-    });
+export function login(name, email, password) {
+  return function(dispatch, getState) {
+    axios
+      .post("http://localhost:4000/login", {
+        email: email,
+        name: name,
+        password: password
+      })
 
-    dispatch(loginSuccess(response.data.token));
+      .then(response => dispatch(loginSuccess(response.data.token)));
   };
 }

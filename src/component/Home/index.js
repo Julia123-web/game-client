@@ -9,6 +9,6 @@ function Home() {
   );
 }
 
-const mapStateToProps = state => ({ events: state.events });
+const mapStateToProps = state => ({ home: state.home });
 
 export default connect(mapStateToProps)(Home);

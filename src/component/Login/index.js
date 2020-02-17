@@ -20,28 +20,26 @@ class LoginContainer extends Component {
     this.props.dispatch(
       login(this.state.name, this.state.email, this.state.password)
     );
+    this.props.history.push("/rooms");
     this.setState({ name: "", email: "", password: "" });
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.userLoggedIn !== this.props.userLoggedIn) {
-      setTimeout(() => this.props.history.push("/"), 1500);
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.userLoggedIn !== this.props.userLoggedIn) {
+  //     setTimeout(() => this.props.history.push("/"), 1500);
+  //   }
+  // }
 
   render() {
     return (
       <div>
-        {this.props.userLoggedIn ? (
-          <h1>You are logged in</h1>
-        ) : (
-          <UserForm
-            text="Login"
-            values={this.state}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
-        )}
+        <UserForm
+          text="Login"
+          isLogin
+          values={this.state}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }
