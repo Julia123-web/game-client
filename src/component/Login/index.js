@@ -20,7 +20,7 @@ class LoginContainer extends Component {
     this.props.dispatch(
       login(this.state.name, this.state.email, this.state.password)
     );
-    this.props.history.push("/rooms");
+    this.props.history.push("/levels");
     this.setState({ name: "", email: "", password: "" });
   };
 

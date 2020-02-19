@@ -20,6 +20,7 @@ class SingupFormContainer extends Component {
     this.props.dispatch(
       signUp(this.state.name, this.state.email, this.state.password)
     );
+    this.props.history.push("/rooms");
     this.setState({ name: "", email: "", password: "" });
   };
 

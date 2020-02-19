@@ -19,10 +19,10 @@ export function signUp(name, email, password) {
   };
 }
 
-function loginSuccess(token) {
+function loginSuccess(token, name) {
   return {
     type: LOGIN_SUCCESS,
-    payload: { token: token }
+    payload: { token, name }
   };
 }
 
@@ -35,6 +35,8 @@ export function login(name, email, password) {
         password: password
       })
 
-      .then(response => dispatch(loginSuccess(response.data.token)));
+      .then(response =>
+        dispatch(loginSuccess(response.data.token, response.data.name))
+      );
   };
 }
