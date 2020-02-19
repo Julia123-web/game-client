@@ -24,7 +24,7 @@ class CreateRoom extends Component {
   render() {
     // console.log("render state test:", this.state);
     const buttons = this.props.rooms.map(room => (
-      <ButtonGroup vertical>
+      <ButtonGroup>
         <Button
           key={room.props}
           variant="info"
