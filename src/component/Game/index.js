@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Board from "../Board";
 import initializeDeck from "../../deck";
 
-export default function Game() {
+export default function Game(props) {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [dimension, setDimension] = useState(400);
@@ -42,8 +42,9 @@ export default function Game() {
   };
 
   const preloadImages = () => {
+    const level = props.match.params.level;
     cards.map(card => {
-      const src = `/img/${card.type}.jpg`;
+      const src = `/img/${level}/${card.type}.jpg`;
       new Image().src = src;
     });
   };
@@ -69,6 +70,9 @@ export default function Game() {
       )
     );
   };
+  if (!cards) {
+    return null;
+  }
   return (
     <Board
       dimension={dimension}
@@ -77,6 +81,7 @@ export default function Game() {
       handleClick={handleClick}
       disabled={disabled}
       solved={solved}
+      level={"Easy"}
     />
   );
 }

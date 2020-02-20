@@ -7,6 +7,7 @@ import Login from "./component/Login/index";
 import SignUp from "./component/SignUp/index";
 import Rooms from "./component/Rooms";
 import Game from "./component/Game";
+import Levels from "./component/Levels";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav } from "react-bootstrap";
 
@@ -49,7 +50,8 @@ class App extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/rooms" component={Rooms} />
-          <Route exact path="/games" component={Game} />
+          <Route exact path="/levels" component={Levels} />
+          <Route exact path="/games/:level" component={Game} />
         </Router>
       </div>
     );

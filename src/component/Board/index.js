@@ -10,7 +10,8 @@ export default function Board({
   cards,
   flipped,
   solved,
-  handleClick
+  handleClick,
+  level
 }) {
   return (
     <div className="board">
@@ -25,6 +26,7 @@ export default function Board({
           solved={solved.includes(card.id)}
           handleClick={handleClick}
           disabled={disabled || solved.includes(card.id)}
+          level={level}
         />
       ))}
     </div>

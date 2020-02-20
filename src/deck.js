@@ -11,16 +11,7 @@ function shuffle(array) {
 
 export default function initializeDeck() {
   let id = 0;
-  const cards = [
-    "chimpance",
-    "cow",
-    "kitty",
-    "monkey",
-    "ostrich",
-    "owl",
-    "pug",
-    "puppy"
-  ].reduce((acc, type) => {
+  const cards = ["1", "2", "3", "4", "5", "6", "7", "8"].reduce((acc, type) => {
     acc.push({
       id: id++,
       type
@@ -31,5 +22,6 @@ export default function initializeDeck() {
     });
     return acc;
   }, []);
+
   return shuffle(cards);
 }

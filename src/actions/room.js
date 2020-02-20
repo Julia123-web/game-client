@@ -3,6 +3,8 @@ import axios from "axios";
 export const ALL_ROOMS = "ALL_ROOMS";
 export const ONE_NEW_ROOM = "ONE_NEW_ROOM";
 
+const dbUrl = process.DATABASE_URL || "http://localhost:4000";
+
 function allRooms(rooms) {
   return {
     type: ALL_ROOMS,
@@ -12,7 +14,7 @@ function allRooms(rooms) {
 export function room(name) {
   return function(dispatch, getState) {
     axios
-      .post("http://localhost:4000/room", {
+      .post(`${dbUrl}/room`, {
         roomName: name
       })
 
@@ -27,7 +29,7 @@ function newRoom() {
 export function newRoomCreate(name) {
   return function(dispatch, getState) {
     axios
-      .post("http://localhost:4000/room", {
+      .post(`${dbUrl}/room`, {
         name
       })
       .then(response => dispatch(newRoom()));

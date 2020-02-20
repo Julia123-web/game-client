@@ -11,8 +11,11 @@ export default function Card({
   solved,
   height,
   width,
-  disabled
+  disabled,
+  level
 }) {
+  // console.log("params", level);
+
   return (
     <div
       className={`flip-container ${flipped ? `flipped` : ""}`}
@@ -24,7 +27,11 @@ export default function Card({
           alt="hi"
           style={{ height, width }}
           className={flipped ? "front" : "back"}
-          src={flipped || solved ? `/img/${type}.jpg` : `/img/back.jpg`}
+          src={
+            flipped || solved
+              ? `/img/${level}/${type}.jpg`
+              : `/img/${level}/back.jpg`
+          }
         />
       </div>
     </div>
@@ -39,5 +46,6 @@ Card.propTypes = {
   type: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
+  level: PropTypes.string.isRequired
 };
