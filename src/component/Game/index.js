@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Board from "../Board";
+import Score from "../Score";
 import initializeDeck from "../../deck";
+import { postScore } from "../../actions/score";
+import { connect } from "react-redux";
 
-export default function Game(props) {
+function Game(props) {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [dimension, setDimension] = useState(400);
   const [solved, setSolved] = useState([]);
   const [disabled, setDisabled] = useState(false);
+  const [score, setScore] = useState(0);
+
+  const nrToLevel = {
+    easy: 1,
+    medium: 2,
+    difficult: 3
+  };
 
   useEffect(() => {
     resizeBoard();
@@ -34,8 +44,14 @@ export default function Game(props) {
       setFlipped([flipped[0], id]);
       if (isMatch(id)) {
         setSolved([...solved, flipped[0], id]);
+        if (solved.length === 14) {
+          console.log("I WON!");
+          props.dispatch(postScore(score, nrToLevel[props.match.params.level]));
+        }
+        setScore(score + 10);
         resetCards();
       } else {
+        setScore(score - 1);
         setTimeout(resetCards, 900);
       }
     }
@@ -73,15 +89,22 @@ export default function Game(props) {
   if (!cards) {
     return null;
   }
+  console.log(props.match.params);
   return (
-    <Board
-      dimension={dimension}
-      cards={cards}
-      flipped={flipped}
-      handleClick={handleClick}
-      disabled={disabled}
-      solved={solved}
-      level={"Easy"}
-    />
+    <div>
+      <Board
+        dimension={dimension}
+        cards={cards}
+        flipped={flipped}
+        handleClick={handleClick}
+        disabled={disabled}
+        solved={solved}
+        level={props.match.params.level}
+      />
+
+      <Score score={score} level={nrToLevel[props.match.params.level]} />
+    </div>
   );
 }
+
+export default connect()(Game);

@@ -21,6 +21,9 @@ class CreateRoom extends Component {
     this.setState({ name: "" });
   };
 
+  pick = () => {
+    this.props.history.push("/levels");
+  };
   render() {
     // console.log("render state test:", this.state);
     const buttons = this.props.rooms.map(room => (
@@ -31,7 +34,7 @@ class CreateRoom extends Component {
           size="lg"
           align-items="center"
           block
-          onClick={() => this.pick(room.roomName, room.id)}
+          onClick={this.pick}
         >
           {room.roomName}
         </Button>

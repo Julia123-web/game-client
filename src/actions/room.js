@@ -22,16 +22,28 @@ export function room(name) {
   };
 }
 
-function newRoom() {
-  return { type: ONE_NEW_ROOM };
-}
-
-export function newRoomCreate(name) {
-  return function(dispatch, getState) {
-    axios
-      .post(`${dbUrl}/room`, {
-        name
-      })
-      .then(response => dispatch(newRoom()));
+function createRoomSucess() {
+  return {
+    type: ONE_NEW_ROOM,
+    payload: {
+      room: room
+    }
   };
 }
+
+export const createRoom = name => {
+  return async function(dispatch, getState) {
+    const token = getState().user.token;
+
+    const response = await axios({
+      method: "POST",
+      url: `${dbUrl}/room`,
+      headers: { authorization: `Bearer ${token}` },
+      data: {
+        name
+      }
+    });
+    console.log(response);
+    dispatch(createRoomSucess(response.data));
+  };
+};

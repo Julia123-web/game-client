@@ -10,14 +10,15 @@ function signUpSuccess() {
 }
 
 export function signUp(name, email, password) {
-  return function(dispatch, getState) {
-    axios
-      .post(`${dbUrl}/user`, {
-        email: email,
-        name: name,
-        password: password
-      })
-      .then(response => dispatch(signUpSuccess()));
+  return async function(dispatch, getState) {
+    const response = await axios.post(`${dbUrl}/user`, {
+      email: email,
+      name: name,
+      password: password
+    });
+    if (response.status === 201) {
+      dispatch(signUpSuccess());
+    }
   };
 }
 
@@ -28,17 +29,14 @@ function loginSuccess(token, name) {
   };
 }
 
-export function login(name, email, password) {
-  return function(dispatch, getState) {
-    axios
-      .post(`${dbUrl}/login`, {
-        email: email,
-        name: name,
-        password: password
-      })
+export function login(email, password) {
+  return async function(dispatch, getState) {
+    const response = await axios.post(`${dbUrl}/login`, {
+      email: email,
+      password: password
+    });
 
-      .then(response =>
-        dispatch(loginSuccess(response.data.token, response.data.name))
-      );
+    console.log(response, "login");
+    dispatch(loginSuccess(response.data.token, response.data.name));
   };
 }
